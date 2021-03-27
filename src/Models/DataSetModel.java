@@ -21,5 +21,7 @@ public class DataSetModel {
 
     public static void AddSquaredError(float squaredError){ SquaredError.add(squaredError);}
     public static float GetSquaredError(int iteration){ return SquaredError.get(iteration);}
+    public static List<Float> GetSquaredErrorsList(){ return SquaredError;}
+
 
 }

@@ -1,5 +1,7 @@
 package Controllers;
 
+import Views.UI.GraphPanel;
+
 import java.util.Arrays;
 import static Controllers.OutputController.Display;
 import static Models.DataSetModel.*;
@@ -7,30 +9,40 @@ import static Models.DataSetModel.*;
 public class CalculationController {
     private static int iterationCounter = 0;
     private static boolean Initialised = false;
+    private static float SquaredError = 1;
+    private static float Alpha = (float) 0.01;
+    private static float Max = (float) 0.43;
+    private static float MAX_ITERATIONS = 100;
+
 
     public static void Start(){
         Display("Input: " + Arrays.toString(GetInputDataSet()));
         Display("Output: " + Arrays.toString(GetOutputDataSet()));
 
-        int i = 3;
-        while (i > 0) {
-            i--;
+        float delta;
+        while (MAX_ITERATIONS-- > 0) {
             if (Initialised) {
                 UpdateP0AndP1();
                 iterationCounter++;
             } else
                 InitialiseP0AndP1();
 
-            Display(Arrays.toString(GetP0AndP1(iterationCounter)));
-
             CalculatePredictedValues();
-            Display(Arrays.toString(GetPredictedData(iterationCounter)));
-
             CalculateSquaredError();
-            Display("Jp : " + (GetSquaredError(iterationCounter)));
+            SquaredError = GetSquaredError(iterationCounter);
 
+            Display("\n-->I = " + iterationCounter);
+            Display("\noutputdata: " + Arrays.toString(GetOutputDataSet()));
+            Display("\nPredicted: " + Arrays.toString(GetPredictedData(iterationCounter)));
+            Display("\n-- Jp : " + (GetSquaredError(iterationCounter)));
+            if (iterationCounter > 0) {
+                delta = GetSquaredError(iterationCounter) - GetSquaredError(iterationCounter -1);
+                Display("\nDelta : " + delta);
+            }
+            Display("\n----------------------");
         }
-        Display("Iteration Count: " + iterationCounter);
+        Display("\nIteration Count: " + iterationCounter);
+        GraphPanel.createAndShowGui(GetSquaredErrorsList(), iterationCounter);
     }
 
     private static void InitialiseP0AndP1() {
@@ -61,7 +73,7 @@ public class CalculationController {
         for (int i = 0; i < M; i++) {
             sigma += (Hp[i] - Y[i]) * (p == 0 ? 1 : X[i]);
         }
-        P -= (0.01 /M) * sigma;
+        P -= (Alpha /M) * sigma;
         return P;
     }
     private static void CalculateSquaredError() { // Jp = (1/2M) * Sigma[(Hp(x_i) - y_i)²] = 4.3167
