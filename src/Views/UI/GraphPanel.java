@@ -151,23 +151,22 @@ public class GraphPanel extends JPanel {
         return maxScore;
     }
 
-    public static void createAndShowGui(List<Float> SquaredErrors) {
-        MainPanel mainPanel = new MainPanel(SquaredErrors);
-        mainPanel.setPreferredSize(new Dimension(800, 600));
+    public static void createAndShowGui(List<Float> SquaredErrors, float alpha, float[] initialP) {
+        MainPanel mainPanel = new MainPanel(SquaredErrors, alpha, initialP);
+        mainPanel.setPreferredSize(new Dimension(600, 400));
         JFrame frame = new JFrame("DrawGraph");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(mainPanel);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     static class MainPanel extends JPanel {
-        public MainPanel(List<Float> scores) {
-
+        public MainPanel(List<Float> scores, float alpha, float[] initialP) {
             setLayout(new BorderLayout());
 
-            JLabel title = new JLabel("Variation of Distance with time");
-            title.setFont(new Font("Arial", Font.BOLD, 25));
+            JLabel title = new JLabel("Cost Per Iterations (Alpha: " + alpha + ", p0: " + initialP[0] + ", p1: " + initialP[1] + ")");
+            title.setFont(new Font("Arial", Font.BOLD, 18));
             title.setHorizontalAlignment(JLabel.CENTER);
 
             JPanel graphPanel = new GraphPanel(scores);
@@ -180,7 +179,7 @@ public class GraphPanel extends JPanel {
             add(graphPanel, BorderLayout.CENTER);
 
         }
-        class VerticalPanel extends JPanel {
+        static class VerticalPanel extends JPanel {
 
             public VerticalPanel() {
                 setPreferredSize(new Dimension(25, 0));
@@ -193,7 +192,7 @@ public class GraphPanel extends JPanel {
                 gg.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
                 Font font = new Font("Arial", Font.PLAIN, 15);
-                String string = "Time (s)";
+                String string = "Cost";
 
                 FontMetrics metrics = g.getFontMetrics(font);
                 int width = metrics.stringWidth(string);
@@ -211,15 +210,13 @@ public class GraphPanel extends JPanel {
             }
 
         }
-        class HorizontalPanel extends JPanel {
-
+        static class HorizontalPanel extends JPanel {
             public HorizontalPanel() {
                 setPreferredSize(new Dimension(0, 25));
             }
 
             @Override
             public void paintComponent(Graphics g) {
-
                 super.paintComponent(g);
 
                 Graphics2D gg = (Graphics2D) g;
@@ -227,7 +224,7 @@ public class GraphPanel extends JPanel {
 
                 Font font = new Font("Arial", Font.PLAIN, 15);
 
-                String string = "Distance (m)";
+                String string = "Iterations";
 
                 FontMetrics metrics = g.getFontMetrics(font);
                 int width = metrics.stringWidth(string);

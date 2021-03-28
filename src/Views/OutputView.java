@@ -34,6 +34,7 @@ public class OutputView {
     }
     public static void OnClick_RunFile(JTextArea outputTextArea){
         outputConsole = outputTextArea;
+        CalculationController.Reset();
         CalculationController.Start();
     }
     public static void OnClick_OpenFile(JList<String> list){
