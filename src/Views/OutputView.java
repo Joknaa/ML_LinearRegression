@@ -25,7 +25,12 @@ public class OutputView {
         System.out.println(p + " " + inputValue);
     }
     public static void OnClick_AddAlpha(String inputValue){
-        System.out.println(inputValue);
+        try {
+            float alpha = Float.parseFloat(inputValue);
+            CalculationController.SetAlpha(alpha);
+        } catch (Exception e) {
+            DisplayError(e.getMessage());
+        }
     }
     public static void OnClick_RunFile(JTextArea outputTextArea){
         outputConsole = outputTextArea;

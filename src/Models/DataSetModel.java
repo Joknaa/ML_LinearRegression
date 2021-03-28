@@ -9,6 +9,7 @@ public class DataSetModel {
     private static final List<float[]> predictedData = new ArrayList<>();
     private static final List<float[]> P = new ArrayList<>();
     private static final List<Float> SquaredError = new ArrayList<>();
+    private static float Alpha;
 
     public static int[] GetInputDataSet(){ return dataSet_X; }
     public static int[] GetOutputDataSet(){ return dataSet_Y; }
@@ -22,6 +23,7 @@ public class DataSetModel {
     public static void AddSquaredError(float squaredError){ SquaredError.add(squaredError);}
     public static float GetSquaredError(int iteration){ return SquaredError.get(iteration);}
     public static List<Float> GetSquaredErrorsList(){ return SquaredError;}
+
 
 
 }

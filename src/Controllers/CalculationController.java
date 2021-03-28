@@ -32,17 +32,21 @@ public class CalculationController {
             SquaredError = GetSquaredError(iterationCounter);
 
             Display("\n-->I = " + iterationCounter);
+            System.out.println("-->I = " + iterationCounter);
             Display("\noutputdata: " + Arrays.toString(GetOutputDataSet()));
             Display("\nPredicted: " + Arrays.toString(GetPredictedData(iterationCounter)));
             Display("\n-- Jp : " + (GetSquaredError(iterationCounter)));
+            System.out.println("-- Jp : " + GetSquaredError(iterationCounter));
             if (iterationCounter > 0) {
                 delta = GetSquaredError(iterationCounter) - GetSquaredError(iterationCounter -1);
                 Display("\nDelta : " + delta);
+                System.out.println("Delta : " + delta);
             }
             Display("\n----------------------");
         }
         Display("\nIteration Count: " + iterationCounter);
-        GraphPanel.createAndShowGui(GetSquaredErrorsList(), iterationCounter);
+        //GraphPanel.createAndShowGui(GetSquaredErrorsList(), iterationCounter);
+        GraphPanel.createAndShowGui(GetSquaredErrorsList());
     }
 
     private static void InitialiseP0AndP1() {
@@ -90,4 +94,7 @@ public class CalculationController {
         SquaredError = (float) ((1.0 /M2) * sigma);
         AddSquaredError(SquaredError);
     }
+
+    public static void SetAlpha(float alpha){ Alpha = alpha;}
+
 }
