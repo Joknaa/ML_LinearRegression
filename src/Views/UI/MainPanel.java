@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
 
-public class MainPanel extends JPanel implements IPanel, ActionListener, ChangeListener {
+public class MainPanel extends JPanel implements ActionListener, ChangeListener {
     //<editor-fold desc="Variables Declarations">">
     private final JLabel headerLogo = new JLabel(new ImageIcon("Resources/plot_50px_BLUEWOOD.png"));
     private final JLabel fileChooserLabel = new JLabel("File.txt");
@@ -194,12 +194,6 @@ public class MainPanel extends JPanel implements IPanel, ActionListener, ChangeL
         );
     }
 
-    @Override
-    public JPanel GetPanel() { return this; }
-    @Override
-    public void Activate(){ this.setVisible(true);}
-    @Override
-    public void Deactivate(){ this.setVisible(false);}
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource().equals(runButton))

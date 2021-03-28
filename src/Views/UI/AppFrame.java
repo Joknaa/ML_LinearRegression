@@ -5,14 +5,12 @@ import javax.swing.*;
 public class AppFrame extends JFrame{
     JPanel currentPanel;
 
-    public void SetCurrentPanel(IPanel iPanel){
-        currentPanel = iPanel.GetPanel();
+    public void SetCurrentPanel(JPanel Panel){
+        currentPanel = Panel;
         currentPanel.setVisible(true);
         add(currentPanel);
         SetupFrame();
     }
-
-    public JPanel GetCurrentPanel(){ return this.currentPanel; }
 
     private void SetupFrame() {
         SetupFrameLayout();

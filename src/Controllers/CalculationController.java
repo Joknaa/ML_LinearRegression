@@ -2,8 +2,6 @@ package Controllers;
 
 import Views.UI.GraphPanel;
 
-import java.util.Arrays;
-
 import static Models.DataSetModel.*;
 
 public class CalculationController {
@@ -72,5 +70,6 @@ public class CalculationController {
         Alpha = alpha;
         iterationCounter = 0;
         MAX_ITERATIONS = 100;
+        CalculationController.Start();
     }
 }
