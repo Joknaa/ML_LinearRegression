@@ -208,6 +208,8 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
     public void actionPerformed(ActionEvent event) {
         if (event.getSource().equals(runButton))
             OnClick_RunFile(p0Field, p1Field, alphaField, iterationField);
+        else if (event.getSource().equals(fileChooserButton))
+            GetDataSet();
     }
 
     @Override
@@ -215,12 +217,6 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
         alphaField.setText(String.valueOf(((float) alphaSlider.getValue())/100));
     }
 
-    private static void GetDataFromFile() throws NullPointerException {
-        JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
 
-        if (chooser.getSelectedFile() == null)
-            throw new NullPointerException("No file has been selected");
-    }
 
 }

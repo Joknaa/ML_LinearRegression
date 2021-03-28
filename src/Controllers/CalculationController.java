@@ -2,18 +2,18 @@ package Controllers;
 
 import Views.UI.GraphPanel;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static Models.DataSetModel.*;
 
 public class CalculationController {
-    private static int iterationCounter = 0;
-    private static float SquaredError = 1;
-    private static float Alpha;
-    private static float Max = (float) 0.43;
+    public static final int DEFAULT_MAX_ITERATIONS = 50;
     private static int MAX_ITERATIONS;
+    private static int iterationCounter = 0;
+    private static float Alpha;
 
     public static void Start(){
-        float delta;
-
         while (MAX_ITERATIONS-- > 0) {
             CalculatePredictedValues();
             CalculateSquaredError();
@@ -24,11 +24,11 @@ public class CalculationController {
     }
 
     private static void CalculatePredictedValues() {
-        int[] X = GetInputDataSet();
+        List<Integer> X = GetInputDataSet();
         float[] P = GetP0AndP1(iterationCounter);
-        float[] Hp = new float[X.length];
-        for (int i = 0; i < X.length; i++) {
-            Hp[i] = (P[1] * X[i]) + P[0];
+        float[] Hp = new float[X.size()];
+        for (int i = 0; i < X.size(); i++) {
+            Hp[i] = (P[1] * X.get(i)) + P[0];
         }
         AddPredictedData(Hp);
     }
@@ -36,11 +36,11 @@ public class CalculationController {
         float Cost;
         float sigma = 0;
         float[] Hp = GetPredictedData(iterationCounter);
-        int[] Y = GetOutputDataSet();
-        int M = Y.length;
+        List<Integer> Y = GetOutputDataSet();
+        int M = Y.size();
 
         for (int i = 0; i < M; i++) {
-            sigma += Math.pow(Hp[i] - Y[i], 2);
+            sigma += Math.pow(Hp[i] - Y.get(i), 2);
         }
         float M2 = 2 * M;
         Cost = (float) ((1.0 /M2) * sigma);
@@ -53,12 +53,12 @@ public class CalculationController {
         float sigma = 0;
         float P = GetP0AndP1(iterationCounter)[p];
         float[] Hp = GetPredictedData(iterationCounter);
-        int[] Y = GetOutputDataSet();
-        int[] X = GetInputDataSet();
-        int M = Y.length;
+        List<Integer> Y = GetOutputDataSet();
+        List<Integer> X = GetInputDataSet();
+        int M = Y.size();
 
         for (int i = 0; i < M; i++) {
-            sigma += (Hp[i] - Y[i]) * (p == 0 ? 1 : X[i]);
+            sigma += (Hp[i] - Y.get(i)) * (p == 0 ? 1 : X.get(i));
         }
         P -= (Alpha /M) * sigma;
         return P;
@@ -71,5 +71,7 @@ public class CalculationController {
         iterationCounter = 0;
         MAX_ITERATIONS = iterations;
         CalculationController.Start();
+        System.out.println(Arrays.toString(GetInputDataSet().toArray()));
+        System.out.println(Arrays.toString(GetOutputDataSet().toArray()));
     }
 }

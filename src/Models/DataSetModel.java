@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataSetModel {
-    private static final int[] dataSet_X = new int[]{1, 2, 4};
-    private static final int[] dataSet_Y = new int[]{2, 1, 5};
+    private static final List<Integer> dataSet_X = new ArrayList<>();
+    private static final List<Integer> dataSet_Y = new ArrayList<>();
     private static final List<float[]> predictedData = new ArrayList<>();
     private static final List<float[]> P = new ArrayList<>();
     private static final List<Float> Cost = new ArrayList<>();
 
-    public static int[] GetInputDataSet(){ return dataSet_X; }
-    public static int[] GetOutputDataSet(){ return dataSet_Y; }
+    public static void AddDataSet_X(int x){dataSet_X.add(x); }
+    public static void AddDataSet_Y(int y){dataSet_Y.add(y); }
+    public static List<Integer> GetInputDataSet(){ return dataSet_X; }
+    public static List<Integer> GetOutputDataSet(){ return dataSet_Y; }
 
     public static void AddPredictedData(float[] data) { predictedData.add(data);}
     public static float[] GetPredictedData(int iteration) { return predictedData.get(iteration);}
