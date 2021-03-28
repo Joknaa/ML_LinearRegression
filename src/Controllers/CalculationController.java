@@ -9,7 +9,7 @@ public class CalculationController {
     private static float SquaredError = 1;
     private static float Alpha;
     private static float Max = (float) 0.43;
-    private static float MAX_ITERATIONS;
+    private static int MAX_ITERATIONS;
 
     public static void Start(){
         float delta;
@@ -20,7 +20,7 @@ public class CalculationController {
             UpdateP0AndP1();
             iterationCounter++;
         }
-        GraphPanel.createAndShowGui(GetCostsList(), Alpha, GetP0AndP1(0));
+        GraphPanel.createAndShowGui(GetCostsList(), Alpha, GetP0AndP1(0), MAX_ITERATIONS);
     }
 
     private static void CalculatePredictedValues() {
@@ -64,12 +64,12 @@ public class CalculationController {
         return P;
     }
 
-    public static void SetupParameters(float p0, float p1, float alpha) {
+    public static void SetupParameters(float p0, float p1, float alpha, int iterations) {
         ClearIterativeData();
         AddP0AndP1(p0, p1);
         Alpha = alpha;
         iterationCounter = 0;
-        MAX_ITERATIONS = 100;
+        MAX_ITERATIONS = iterations;
         CalculationController.Start();
     }
 }

@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import static Views.OutputView.*;
+import static javax.swing.GroupLayout.*;
 import static javax.swing.SwingConstants.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,9 +14,10 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
     //<editor-fold desc="Variables Declarations">">
     private final JLabel headerLogo = new JLabel(new ImageIcon("Resources/plot_50px_BLUEWOOD.png"));
     private final JLabel fileChooserLabel = new JLabel("File.txt");
-    private final JTextField alphaField = new JTextField("Alpha");
     private final JTextField p0Field = new JTextField("P0");
     private final JTextField p1Field = new JTextField("P1");
+    private final JTextField alphaField = new JTextField("Alpha");
+    private final JTextField iterationField = new JTextField("Iterations");
     private final JTextArea headerText = new JTextArea("Machine Learning:\nLinear Regression");
     private final JButton fileChooserButton = new JButton("Add File");
     private final JButton closeButton = new JButton("X");
@@ -24,14 +26,15 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
     private final JSeparator p0Separator = new JSeparator();
     private final JSeparator p1Separator = new JSeparator();
     private final JSeparator alphaSeparator = new JSeparator();
+    private final JSeparator iterationSeparator = new JSeparator();
     //</editor-fold>
 
     public MainPanel(){
         SetupHeader();
         SetupCloseButton();
         SetupFileChooser();
-        SetupInputField(p0Field, p1Field, alphaField);
-        SetupSeparators(p0Separator, p1Separator, alphaSeparator);
+        SetupInputField(p0Field, p1Field, alphaField, iterationField);
+        SetupSeparators(p0Separator, p1Separator, alphaSeparator, iterationSeparator);
         SetupAlphaSlider();
         SetupButtons(runButton, fileChooserButton);
         SetupPanelLayout();
@@ -72,6 +75,7 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
         placeHolder.put(p0Field, "P0");
         placeHolder.put(p1Field, "P1");
         placeHolder.put(alphaField, "Alpha");
+        placeHolder.put(iterationField, "Iterations");
         for (JTextField field : inputFields) {
             field.setBackground(PICKLED_BLUEWOOD);
             field.setForeground(BLUE_HAZE);
@@ -122,73 +126,79 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(headerLogo)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(fileChooserButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addComponent(fileChooserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(40, 40, 40))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(p0Field)
-                                                                        .addComponent(p0Separator, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(21, 21, 21)
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(p1Field)
-                                                                        .addComponent(p1Separator, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(15, 15, 15))
-                                                        .addComponent(alphaSlider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(alphaField)
-                                                                        .addComponent(alphaSeparator)
-                                                                        .addComponent(runButton, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(58, 58, 58)))
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(headerText, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        layout.setHorizontalGroup( layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(headerLogo)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                                                .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                                                                .addComponent(fileChooserButton, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(fileChooserLabel, PREFERRED_SIZE, 121, PREFERRED_SIZE))
+                                                        .addGap(40, 40, 40))
+                                                .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                                                                .addComponent(p0Field)
+                                                                .addComponent(p0Separator, PREFERRED_SIZE, 70, PREFERRED_SIZE))
+                                                        .addGap(21, 21, 21)
+                                                        .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                                                                .addComponent(p1Field)
+                                                                .addComponent(p1Separator, PREFERRED_SIZE, 79, PREFERRED_SIZE))
+                                                        .addGap(15, 15, 15))
+                                                .addComponent(alphaSlider, Alignment.TRAILING, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                                .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                                                                .addComponent(iterationField)
+                                                                .addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+                                                                        .addComponent(iterationSeparator)
+                                                                        .addComponent(alphaField, Alignment.LEADING)
+                                                                        .addComponent(alphaSeparator, Alignment.LEADING)
+                                                                        .addComponent(runButton, Alignment.LEADING, PREFERRED_SIZE, 79, PREFERRED_SIZE)))
+                                                        .addGap(58, 58, 58)))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(headerText, PREFERRED_SIZE, 250, PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(closeButton, PREFERRED_SIZE, 21, PREFERRED_SIZE))))
         );
-        layout.setVerticalGroup( layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        layout.setVerticalGroup( layout.createParallelGroup(Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, 0)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(headerText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                .addComponent(headerText, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
+                                .addComponent(closeButton, PREFERRED_SIZE, 23, PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                         .addGap(8, 8, 8)
                                         .addComponent(headerLogo)))
                         .addGap(33, 33, 33)
                         .addComponent(fileChooserButton)
                         .addGap(1, 1, 1)
-                        .addComponent(fileChooserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fileChooserLabel, PREFERRED_SIZE, 29, PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                        .addComponent(p0Field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(p0Field, PREFERRED_SIZE, 31, PREFERRED_SIZE)
                                         .addGap(0, 0, 0)
-                                        .addComponent(p0Separator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(p0Separator, PREFERRED_SIZE, 10, PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
-                                        .addComponent(p1Field, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(p1Field, PREFERRED_SIZE, 31, PREFERRED_SIZE)
                                         .addGap(0, 0, 0)
-                                        .addComponent(p1Separator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(p1Separator, PREFERRED_SIZE, 10, PREFERRED_SIZE)))
                         .addGap(32, 32, 32)
-                        .addComponent(alphaSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(alphaSlider, PREFERRED_SIZE, DEFAULT_SIZE, PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(alphaField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(alphaField, PREFERRED_SIZE, 31, PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(alphaSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                        .addComponent(runButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(alphaSeparator, PREFERRED_SIZE, 10, PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(iterationField, PREFERRED_SIZE, 31, PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(iterationSeparator, PREFERRED_SIZE, 10, PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(runButton, PREFERRED_SIZE, 23, PREFERRED_SIZE)
                         .addGap(16, 16, 16)
                 )
         );
@@ -197,8 +207,7 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource().equals(runButton))
-            OnClick_RunFile(p0Field, p1Field, alphaField);
-
+            OnClick_RunFile(p0Field, p1Field, alphaField, iterationField);
     }
 
     @Override

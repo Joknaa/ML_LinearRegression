@@ -137,22 +137,22 @@ public class GraphPanel extends JPanel {
         }
     }
     private double getMinScore() {
-        double minScore = Double.MAX_VALUE;
+        double minScore = Long.MAX_VALUE;
         for (Float score : scores) {
-            minScore = Math.min(0, score);
+            minScore = Math.min(minScore, score);
         }
         return minScore;
     }
     private double getMaxScore() {
-        double maxScore = Double.MIN_VALUE;
+        double maxScore = Long.MIN_VALUE;
         for (Float score : scores) {
             maxScore = Math.max(maxScore, score);
         }
         return maxScore;
     }
 
-    public static void createAndShowGui(List<Float> SquaredErrors, float alpha, float[] initialP) {
-        MainPanel mainPanel = new MainPanel(SquaredErrors, alpha, initialP);
+    public static void createAndShowGui(List<Float> SquaredErrors, float alpha, float[] initialP, int maxIterations) {
+        MainPanel mainPanel = new MainPanel(SquaredErrors, alpha, initialP, maxIterations);
         mainPanel.setPreferredSize(new Dimension(600, 400));
         JFrame frame = new JFrame("DrawGraph");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -162,10 +162,11 @@ public class GraphPanel extends JPanel {
         frame.setVisible(true);
     }
     static class MainPanel extends JPanel {
-        public MainPanel(List<Float> scores, float alpha, float[] initialP) {
+        public MainPanel(List<Float> scores, float alpha, float[] initialP, int maxIterations) {
             setLayout(new BorderLayout());
 
-            JLabel title = new JLabel("Cost Per Iterations (Alpha: " + alpha + ", p0: " + initialP[0] + ", p1: " + initialP[1] + ")");
+            JLabel title = new JLabel(String.format("Cost Per Iterations: Alpha=%.3f .. p0=%.3f ..  p1=%.3f",
+                    alpha, initialP[0], initialP[1]));
             title.setFont(new Font("Arial", Font.BOLD, 18));
             title.setHorizontalAlignment(JLabel.CENTER);
 
