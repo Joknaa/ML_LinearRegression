@@ -73,5 +73,7 @@ public class CalculationController {
         CalculationController.Start();
         System.out.println(Arrays.toString(GetInputDataSet().toArray()));
         System.out.println(Arrays.toString(GetOutputDataSet().toArray()));
+        System.out.println(Arrays.toString(GetCostsList().toArray()));
+
     }
 }

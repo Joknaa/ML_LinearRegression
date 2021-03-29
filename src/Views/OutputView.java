@@ -26,18 +26,32 @@ public class OutputView {
 
     public static void OnClick_RunFile(JTextField p0, JTextField p1, JTextField alpha, JTextField iterations) {
         try {
-            float P0 = Float.parseFloat(p0.getText());
-            float P1 = Float.parseFloat(p1.getText());
-            float Alpha = Float.parseFloat(alpha.getText());
-            int Iterations = Integer.parseInt(iterations.getText());
+            float P0 = GetFloat(p0, 0);
+            float P1 = GetFloat(p1, 0);
+            float Alpha = GetFloat(alpha, (float) 0.01);
+            int Iterations = GetInt(iterations);
             CalculationController.SetupParameters(P0, P1, Alpha, Iterations);
-        } catch (NumberFormatException e) {
-            Random random = new Random();
-            CalculationController.SetupParameters(1/random.nextFloat(), 1/random.nextFloat(), random.nextFloat(),
-                    DEFAULT_MAX_ITERATIONS);
         } catch (Exception e) {
             DisplayError(e.getMessage());
         }
+    }
+    private static float GetFloat(JTextField p0, float Default) {
+        float P0;
+        try {
+            P0 = Float.parseFloat(p0.getText());
+        } catch (NumberFormatException e){
+            P0 = Default;
+        }
+        return P0;
+    }
+    private static int GetInt(JTextField iterations) {
+        int Iterations;
+        try {
+            Iterations = Integer.parseInt(iterations.getText());
+        } catch (NumberFormatException e){
+            Iterations = DEFAULT_MAX_ITERATIONS;
+        }
+        return Iterations;
     }
 
     public static void GetDataSet() {
