@@ -21,8 +21,11 @@ The user interface is as follows; The user can:
 The user can input any text file contains a DataSet in the following format:
 <br>
 The first column are the input values (X), the second are the output values (Y)
+
 ![Example of the file structure](Resources/Github/DataSet.png)
-_note: you can find this file (DataSet2.txt) in the Resources folder._
+
+_note: you can find this file (DataSet2.txt) in the Resources folder._<br>
+_note: if the user doent specify any file as a dataset, this one will be used._
 
 ### => Output Graph
 The program calculates the cost of each iteration, and then displays it in a graph.
