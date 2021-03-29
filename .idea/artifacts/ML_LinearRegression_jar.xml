@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ML_LinearRegression:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ML_LinearRegression_jar</output-path>
+    <root id="archive" name="ML_LinearRegression_IterationCounter.jar">
+      <element id="module-output" name="ML_LinearRegression_IterationCounter" />
+      <element id="dir-copy" path="$PROJECT_DIR$/Resources" />
+    </root>
+  </artifact>
+</component>

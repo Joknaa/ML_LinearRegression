@@ -64,16 +64,13 @@ public class CalculationController {
         return P;
     }
 
-    public static void SetupParameters(float p0, float p1, float alpha, int iterations) {
+    public static void SetupParameters(float p0, float p1, float alpha, int iterations, boolean noFileSelected) {
         ClearIterativeData();
         AddP0AndP1(p0, p1);
+        if (noFileSelected) LoadDefaultDataSet();
         Alpha = alpha;
         iterationCounter = 0;
         MAX_ITERATIONS = iterations;
         CalculationController.Start();
-        System.out.println(Arrays.toString(GetInputDataSet().toArray()));
-        System.out.println(Arrays.toString(GetOutputDataSet().toArray()));
-        System.out.println(Arrays.toString(GetCostsList().toArray()));
-
     }
 }

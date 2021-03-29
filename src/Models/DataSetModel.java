@@ -1,5 +1,7 @@
 package Models;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,21 @@ public class DataSetModel {
     private static final List<float[]> predictedData = new ArrayList<>();
     private static final List<float[]> P = new ArrayList<>();
     private static final List<Float> Cost = new ArrayList<>();
+
+    public static void LoadDefaultDataSet(){
+        dataSet_X.add(1);
+        dataSet_X.add(2);
+        dataSet_X.add(4);
+        dataSet_X.add(5);
+        dataSet_X.add(3);
+        dataSet_X.add(8);
+        dataSet_Y.add(2);
+        dataSet_Y.add(1);
+        dataSet_Y.add(5);
+        dataSet_Y.add(2);
+        dataSet_Y.add(6);
+        dataSet_Y.add(0);
+    }
 
     public static void AddDataSet_X(int x){dataSet_X.add(x); }
     public static void AddDataSet_Y(int y){dataSet_Y.add(y); }

@@ -8,8 +8,7 @@ import Controllers.CalculationController;
 import Views.UI.*;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -18,6 +17,7 @@ public class OutputView {
     public static final Color BLUE_BAYOUX = new Color(52, 66, 91);
     public static final Color PICKLED_BLUEWOOD = new Color(76, 96, 133);
     public static final Color BLUE_HAZE = new Color(190, 200, 218);
+    private static boolean noFileSelected = true;
 
     public static void SetUpGUI() {
         appFrame.SetupOnTimeConfiguration();
@@ -30,7 +30,7 @@ public class OutputView {
             float P1 = GetFloat(p1, 0);
             float Alpha = GetFloat(alpha, (float) 0.01);
             int Iterations = GetInt(iterations);
-            CalculationController.SetupParameters(P0, P1, Alpha, Iterations);
+            CalculationController.SetupParameters(P0, P1, Alpha, Iterations, noFileSelected);
         } catch (Exception e) {
             DisplayError(e.getMessage());
         }
@@ -64,10 +64,10 @@ public class OutputView {
             }
             if (chooser.getSelectedFile() == null) throw new NullPointerException("No file has been selected");
 
-
             File dataSetFile = chooser.getSelectedFile();
             ExtractDataSet(dataSetFile);
             fileChooserLabel.setText(chooser.getSelectedFile().getName());
+            noFileSelected = false;
         }catch (Exception e) {
             DisplayError(e.getMessage());
         }

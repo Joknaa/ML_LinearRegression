@@ -1,5 +1,6 @@
 package Views.UI;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -8,11 +9,12 @@ import static javax.swing.GroupLayout.*;
 import static javax.swing.SwingConstants.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class MainPanel extends JPanel implements ActionListener, ChangeListener {
     //<editor-fold desc="Variables Declarations">">
-    private final JLabel headerLogo = new JLabel(new ImageIcon("Resources/plot_50px_BLUEWOOD.png"));
+    private JLabel headerLogo = new JLabel();
     private final JLabel fileChooserLabel = new JLabel("No File Selected");
     private final JTextField p0Field = new JTextField("P0");
     private final JTextField p1Field = new JTextField("P1");
@@ -29,8 +31,13 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
     private final JSeparator iterationSeparator = new JSeparator();
     //</editor-fold>
 
-    public MainPanel(){
-        SetupHeader();
+    public MainPanel() {
+        try{
+            SetupHeaderLogo();
+        }catch (Exception e){
+            System.out.println((e.getMessage()));
+        }
+        SetupHeaderText();
         SetupCloseButton();
         SetupFileChooser();
         SetupInputField(p0Field, p1Field, alphaField, iterationField);
@@ -40,7 +47,12 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
         SetupPanelLayout();
     }
 
-    private void SetupHeader() {
+    private void SetupHeaderLogo() throws IOException {
+        Image myImage = ImageIO.read(getClass().getResourceAsStream("/plot_50px_BLUEWOOD.png"));
+        headerLogo = new JLabel(new ImageIcon(myImage));
+    }
+
+    private void SetupHeaderText() {
         headerText.setEditable(false);
         headerText.setBackground(PICKLED_BLUEWOOD);
         headerText.setColumns(5);
