@@ -54,19 +54,23 @@ public class OutputView {
         return Iterations;
     }
 
-    public static void GetDataSet() {
+    public static void GetDataSet(JLabel fileChooserLabel) {
         try {
             JFileChooser chooser = new JFileChooser();
-            chooser.showOpenDialog(null);
-            if (chooser.getSelectedFile() == null)
-                throw new NullPointerException("No file has been selected");
+            int result = chooser.showOpenDialog(null);
+            if (result != JFileChooser.APPROVE_OPTION) {
+                fileChooserLabel.setText("No File Selected");
+                return;
+            }
+            if (chooser.getSelectedFile() == null) throw new NullPointerException("No file has been selected");
+
 
             File dataSetFile = chooser.getSelectedFile();
             ExtractDataSet(dataSetFile);
+            fileChooserLabel.setText(chooser.getSelectedFile().getName());
         }catch (Exception e) {
             DisplayError(e.getMessage());
         }
-
     }
 
     private static void ExtractDataSet(File dataSetFile) throws FileNotFoundException {

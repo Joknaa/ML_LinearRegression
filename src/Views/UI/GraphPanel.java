@@ -154,7 +154,7 @@ public class GraphPanel extends JPanel {
     public static void createAndShowGui(List<Float> SquaredErrors, float alpha, float[] initialP, int maxIterations) {
         MainPanel mainPanel = new MainPanel(SquaredErrors, alpha, initialP, maxIterations);
         mainPanel.setPreferredSize(new Dimension(600, 400));
-        JFrame frame = new JFrame("DrawGraph");
+        JFrame frame = new JFrame("Cost Per Iteration");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add(mainPanel);
         frame.pack();
@@ -165,7 +165,7 @@ public class GraphPanel extends JPanel {
         public MainPanel(List<Float> scores, float alpha, float[] initialP, int maxIterations) {
             setLayout(new BorderLayout());
 
-            JLabel title = new JLabel(String.format("Cost Per Iterations: Alpha=%.3f .. p0=%.3f ..  p1=%.3f",
+            JLabel title = new JLabel(String.format("Cost Per Iterations:\n Alpha=%.4f .. p0=%.4f ..  p1=%.4f",
                     alpha, initialP[0], initialP[1]));
             title.setFont(new Font("Arial", Font.BOLD, 18));
             title.setHorizontalAlignment(JLabel.CENTER);

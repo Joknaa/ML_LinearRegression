@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class MainPanel extends JPanel implements ActionListener, ChangeListener {
     //<editor-fold desc="Variables Declarations">">
     private final JLabel headerLogo = new JLabel(new ImageIcon("Resources/plot_50px_BLUEWOOD.png"));
-    private final JLabel fileChooserLabel = new JLabel("File.txt");
+    private final JLabel fileChooserLabel = new JLabel("No File Selected");
     private final JTextField p0Field = new JTextField("P0");
     private final JTextField p1Field = new JTextField("P1");
     private final JTextField alphaField = new JTextField("Alpha");
@@ -137,8 +137,8 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
                                                 .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
                                                         .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
                                                                 .addComponent(fileChooserButton, DEFAULT_SIZE, DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(fileChooserLabel, PREFERRED_SIZE, 121, PREFERRED_SIZE))
-                                                        .addGap(40, 40, 40))
+                                                                .addComponent(fileChooserLabel, PREFERRED_SIZE, 161, PREFERRED_SIZE))
+                                                        .addGap(20, 20, 20))
                                                 .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
                                                         .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
                                                                 .addComponent(p0Field)
@@ -209,7 +209,7 @@ public class MainPanel extends JPanel implements ActionListener, ChangeListener 
         if (event.getSource().equals(runButton))
             OnClick_RunFile(p0Field, p1Field, alphaField, iterationField);
         else if (event.getSource().equals(fileChooserButton))
-            GetDataSet();
+            GetDataSet(fileChooserLabel);
     }
 
     @Override
